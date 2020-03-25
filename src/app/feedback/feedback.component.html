@@ -1,0 +1,58 @@
+<div class="container m-4">
+  <h2>Feedback form</h2>
+
+  <form action="" method="post" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+
+    <div
+      class="form-group" [ngClass]="{
+      'has-error' : submitted
+        && feedbackForm.get('email').errors
+        && (feedbackForm.get('email').touched || feedbackForm.get('email').dirty)
+    }"
+    >
+      <label for="email">Email</label>
+      <input type="text" id="email" formControlName="email" class="form-control">
+      <div class="help-block" *ngIf="feedbackForm.get('email').errors && (feedbackForm.get('email').touched || feedbackForm.get('email').dirty)">
+        <div class="form-text text-danger" *ngIf="feedbackForm.get('email').errors?.required">
+          Email is required
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="form-group" [ngClass]="{
+      'has-error' : submitted
+        && feedbackForm.get('message').errors
+        && (feedbackForm.get('message').touched || feedbackForm.get('message').dirty)
+    }"
+    >
+      <label for="message">Message</label>
+      <input type="text" id="message" formControlName="message" class="form-control">
+      <div class="help-block" *ngIf="feedbackForm.get('message').errors && (feedbackForm.get('message').touched || feedbackForm.get('message').dirty)">
+        <div class="form-text text-danger" *ngIf="feedbackForm.get('message').errors?.required">
+          Message is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input id="agree" type="checkbox" formControlName="agree" class="form-check-inline">
+      <label for="agree" class="form-check-label">Do you Agree?</label>
+      <div class="help-block" *ngIf="submitted && feedbackForm.get('agree').touched && feedbackForm.get('agree').errors?.requiredTrue">
+        <span class="text-danger">You must agree</span>
+      </div>
+    </div>
+
+    <div *ngFor="let colorName of t.controls; let i = index">
+      <label>Color name {{ i + 1 }}</label>
+      <input type="text" [formGroup]="colorName" class="form-control">
+    </div>
+
+    <button (click)="add()" class="btn btn-secondary">Add</button>
+
+    <button type="submit" class="btn btn-primary"
+    >Submit</button>
+
+  </form>
+
+</div>
